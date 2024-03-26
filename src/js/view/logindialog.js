@@ -4,7 +4,7 @@ export default class LoginDialog {
   constructor(controller) {
     this.controller = controller;
     this.formContainer = null;
-    this.data = null;
+    this.data = null;  
   }
 
   getFormHTML() {
@@ -19,8 +19,7 @@ export default class LoginDialog {
     return text;
   }
 
-  show(data) {
-    this.data = data;
+  show() {
     this.formContainer = document.querySelector(".login-form-container");
     if (!this.formContainer) {
       const body = document.querySelector("body");
@@ -31,17 +30,13 @@ export default class LoginDialog {
       const nameField = document.getElementById("description");
       nameField.focus();
 
-      if (this.data) {
-        nameField.value = this.data.name;
-      }
-
       const continueButton = this.formContainer.querySelector(".btn-continue");
       continueButton.addEventListener("click", (ev) => {
         ev.preventDefault();
         if (nameField.value.trim() !== "") {
-          this.data.name = nameField.value;
+          this.data = { command: "login", name: nameField.value };
           this.controller.login(this.data);
-          body.removeChild(this.formContainer);
+          //body.removeChild(this.formContainer);
         } else {
           new MessageDialog(
             "message",
@@ -50,6 +45,23 @@ export default class LoginDialog {
           ).show();
         }
         ev.stopPropagation();
+      });
+
+      this.controller.subscribe(this.formContainer, "login");
+      this.formContainer.addEventListener("login", (ev) => {
+        if (ev.detail.data.result === 0) {
+          body.removeChild(this.formContainer);
+        } else {
+          new MessageDialog(
+            "message",
+            "Псевдоним занят, используйте другой!",
+            "Надо исправить", () => {
+              const nameField = document.getElementById("description");
+              nameField.value = "";
+              nameField.focus(); 
+            }
+          ).show();
+        }
       });
     }
   }

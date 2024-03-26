@@ -30,4 +30,8 @@ export default class TicketListController {
   deleteTicket(id) {
     this.model.deleteTicket(id);
   }
+
+  login(data) {
+    this.model.login(data);
+  }
 }
