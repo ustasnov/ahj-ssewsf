@@ -34,7 +34,7 @@ export default class LoginDialog {
       continueButton.addEventListener("click", (ev) => {
         ev.preventDefault();
         if (nameField.value.trim() !== "") {
-          this.data = { command: "login", name: nameField.value };
+          this.data = { command: "login", data: nameField.value };
           this.controller.login(this.data);
           //body.removeChild(this.formContainer);
         } else {
