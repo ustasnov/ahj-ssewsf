@@ -17,4 +17,3 @@ const serverUrl = "ws://localhost:7070";
 const model = new ChatModel(serverUrl);
 const controller = new ChatController(model);
 new LoginDialog(controller).show();
-

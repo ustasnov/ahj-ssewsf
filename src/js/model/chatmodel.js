@@ -2,7 +2,7 @@ export default class ChatModel {
   constructor(serverUrl) {
     this.subscribers = new Map();
     this.host = serverUrl;
-    this.ws = new WebSocket(this.host + "/ws"); 
+    this.ws = new WebSocket(this.host + "/ws");
     this.currentUser = null;
 
     this.ws.addEventListener("open", (e) => {
@@ -26,13 +26,25 @@ export default class ChatModel {
     this.ws.addEventListener("message", (e) => {
       //console.log(e);
       const data = JSON.parse(e.data);
-      if (data.command = "login") {
-        if (data.result === 0) {
-          this.currentUser = data.data;
+      switch (data.command) {
+        case "login": {
+          if (data.result === 0) {
+            this.currentUser = data.data;
+          }
+          this.notify("login", data);
+          break;
         }
-        this.notify("login", data);
+        case "chat": {
+          this.notify("chat", data);
+          break;
+        }
+        case "users": {
+          this.notify("users", data);
+          break;
+        }
+        default:
+          break;
       }
-      
       //console.log("ws message");
     });
   }
@@ -60,4 +72,13 @@ export default class ChatModel {
   login(data) {
     this.ws.send(JSON.stringify(data));
   }
+
+  getUsers() {
+    this.ws.send(JSON.stringify({ command: "getusers" }));
+  }
+
+  getChatMessages() {
+    this.ws.send(JSON.stringify({ command: "getchat" }));
+  }
+
 }

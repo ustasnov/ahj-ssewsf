@@ -10,4 +10,12 @@ export default class ChatController {
   login(data) {
     this.model.login(data);
   }
+
+  getUsers() {
+    this.model.getUsers();
+  }
+
+  getChatMessages() {
+    this.model.getChatMessages();
+  }
 }

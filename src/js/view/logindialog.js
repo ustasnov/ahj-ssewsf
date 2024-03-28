@@ -1,10 +1,11 @@
 import MessageDialog from "./messagedialog";
+import Chat from "./chat";
 
 export default class LoginDialog {
   constructor(controller) {
     this.controller = controller;
     this.formContainer = null;
-    this.data = null;  
+    this.data = null;
   }
 
   getFormHTML() {
@@ -51,14 +52,17 @@ export default class LoginDialog {
       this.formContainer.addEventListener("login", (ev) => {
         if (ev.detail.data.result === 0) {
           body.removeChild(this.formContainer);
+          const chat = new Chat(this.controller);
+          chat.show();
         } else {
           new MessageDialog(
             "message",
             "Псевдоним занят, используйте другой!",
-            "Надо исправить", () => {
+            "Надо исправить",
+            () => {
               const nameField = document.getElementById("description");
               nameField.value = "";
-              nameField.focus(); 
+              nameField.focus();
             }
           ).show();
         }
