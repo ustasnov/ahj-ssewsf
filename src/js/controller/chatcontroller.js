@@ -18,4 +18,12 @@ export default class ChatController {
   getChatMessages() {
     this.model.getChatMessages();
   }
+
+  getCurrentUser() {
+    return this.model.getCurrentUser();
+  }
+
+  sendPost(data) {
+    this.model.sendPost(data);
+  }
 }

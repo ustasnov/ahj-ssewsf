@@ -16,7 +16,8 @@ export default class Chat {
       <div class="chat-list">
       </div>
       <div class="message">
-        <input type="text" class="message-input" placeholder="Сообщение" required></input>
+        <textarea class="message-input" placeholder="Сообщение" required></textarea>
+        <button class="send-button">&#9658</button>
       </div>   
     </div>`;
 
@@ -32,8 +33,23 @@ export default class Chat {
       formContainer.innerHTML = this.getFormHTML();
       this.formContainer = body.appendChild(formContainer);
 
-      const messageField = document.querySelector("message-input");
+      const messageField = document.querySelector(".message-input");
       messageField.focus();
+      messageField.oninput = e => {
+        messageField.style.height = "auto";
+        messageField.style.height = messageField.scrollHeight + "px";
+      }
+
+      const sendButton = document.querySelector(".send-button");
+      sendButton.addEventListener("click", (ev) => {
+        const currentUser = this.controller.getCurrentUser();
+        const postMessage = { user: currentUser, message: messageField.value };
+        const post = { command: "post",  data: postMessage};
+        this.controller.sendPost({command: "post", data: post});
+        messageField.value = "";
+        messageField.style.height = "auto";
+        messageField.focus();
+      });
 
       this.controller.subscribe(this.formContainer, "users");
       this.formContainer.addEventListener("users", (ev) => {
@@ -51,16 +67,56 @@ export default class Chat {
   }
 
   refreshUsers(data) {
-    const res = JSON.parse(data);
+    console.log(`reсieved users from server: ${data}`);
+    const currentUser = this.controller.getCurrentUser();
     let htmlContent = "";
-    Array.from(res).forEach((el) => {
-      htmlContent = htmlContent + `\n<li class="user">${el}</li>`;
+    Array.from(data).forEach((el) => {
+      let classMe = "";
+      let userName = el;
+
+      if (el === currentUser) {
+        classMe = " me";
+        userName = `Я (${el})`;
+      }
+
+      htmlContent = htmlContent + `
+        <li class="user${classMe}">${userName}</li>`;
     });
     const userList = this.formContainer.querySelector(".users-list");
     userList.innerHTML = htmlContent;
+    userList.scrollTo(0, userList.scrollHeight);
   }
 
   refreshChat(data) {
+    console.log(`reсieved chat messages from server`);
+    let htmlContent = "";
+    let id = 0;
+    const currentUser = this.controller.getCurrentUser();
+    Array.from(data).forEach((el) => {
+      console.log(el);
+      let classJustify = "";
+      let classPostJustify = "";
+      let classMe = "";
+      let userName = `${el.user}, ${el.datetime}`;
+
+      if (el.user === currentUser) {
+        classJustify = " right";
+        classPostJustify = " postright";
+        classMe = " mypost";
+        userName = `Я (${el.user}), ${el.datetime}`;
+      }
+
+      htmlContent = htmlContent + `
+        <div class="post-container${classJustify}">
+          <div class="post${classPostJustify}">
+            <div class="post-user${classMe}">${userName}</div> 
+            <div class="post-message">${el.message}</div>
+          </div>
+        </div>`;
+    });
+    const chatList = this.formContainer.querySelector(".chat-list");
+    chatList.innerHTML = htmlContent;
+    chatList.scrollTo(0, chatList.scrollHeight);
     return;
   }
 }

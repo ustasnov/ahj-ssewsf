@@ -35,17 +35,16 @@ export default class ChatModel {
           break;
         }
         case "chat": {
-          this.notify("chat", data);
+          this.notify("chat", data.data);
           break;
         }
         case "users": {
-          this.notify("users", data);
+          this.notify("users", data.data);
           break;
         }
         default:
           break;
       }
-      //console.log("ws message");
     });
   }
 
@@ -73,6 +72,10 @@ export default class ChatModel {
     this.ws.send(JSON.stringify(data));
   }
 
+  getCurrentUser() {
+    return this.currentUser;
+  }
+
   getUsers() {
     this.ws.send(JSON.stringify({ command: "getusers" }));
   }
@@ -81,4 +84,7 @@ export default class ChatModel {
     this.ws.send(JSON.stringify({ command: "getchat" }));
   }
 
+  sendPost(data) {
+    this.ws.send(JSON.stringify(data));
+  }
 }
