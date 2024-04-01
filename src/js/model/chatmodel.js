@@ -2,7 +2,6 @@ export default class ChatModel {
   constructor(serverUrl) {
     this.subscribers = new Map();
     this.host = serverUrl;
-    //this.ws = new WebSocket(this.host + "/ws");
     this.ws = new WebSocket(this.host + "/ws");
     this.currentUser = null;
 
