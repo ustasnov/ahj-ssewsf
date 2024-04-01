@@ -1,5 +1,3 @@
-import MessageDialog from "./messagedialog";
-
 export default class Chat {
   constructor(controller) {
     this.controller = controller;
@@ -35,17 +33,17 @@ export default class Chat {
 
       const messageField = document.querySelector(".message-input");
       messageField.focus();
-      messageField.oninput = e => {
+      messageField.oninput = () => {
         messageField.style.height = "auto";
         messageField.style.height = messageField.scrollHeight + "px";
-      }
+      };
 
       const sendButton = document.querySelector(".send-button");
-      sendButton.addEventListener("click", (ev) => {
+      sendButton.addEventListener("click", () => {
         const currentUser = this.controller.getCurrentUser();
         const postMessage = { user: currentUser, message: messageField.value };
-        const post = { command: "post",  data: postMessage};
-        this.controller.sendPost({command: "post", data: post});
+        const post = { command: "post", data: postMessage };
+        this.controller.sendPost({ command: "post", data: post });
         messageField.value = "";
         messageField.style.height = "auto";
         messageField.focus();
@@ -67,7 +65,7 @@ export default class Chat {
   }
 
   refreshUsers(data) {
-    console.log(`reсieved users from server: ${data}`);
+    console.log("reсieved users from server");
     const currentUser = this.controller.getCurrentUser();
     let htmlContent = "";
     Array.from(data).forEach((el) => {
@@ -79,7 +77,9 @@ export default class Chat {
         userName = `Я (${el})`;
       }
 
-      htmlContent = htmlContent + `
+      htmlContent =
+        htmlContent +
+        `
         <li class="user${classMe}">${userName}</li>`;
     });
     const userList = this.formContainer.querySelector(".users-list");
@@ -90,7 +90,6 @@ export default class Chat {
   refreshChat(data) {
     console.log(`reсieved chat messages from server`);
     let htmlContent = "";
-    let id = 0;
     const currentUser = this.controller.getCurrentUser();
     Array.from(data).forEach((el) => {
       console.log(el);
@@ -106,7 +105,9 @@ export default class Chat {
         userName = `Я (${el.user}), ${el.datetime}`;
       }
 
-      htmlContent = htmlContent + `
+      htmlContent =
+        htmlContent +
+        `
         <div class="post-container${classJustify}">
           <div class="post${classPostJustify}">
             <div class="post-user${classMe}">${userName}</div> 

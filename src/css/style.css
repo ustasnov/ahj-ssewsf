@@ -11,30 +11,6 @@ body {
     color: dimgray;
 }
 
-.ticket-list-container {
-    width: 800px;
-    display: flex;
-    flex-direction: column;
-    margin: 10px 0;
-    padding: 20px 10px;
-    margin-left: auto;
-    margin-right: auto;
-    border: 1px solid lightgray;
-    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
-}
-
-.ticket-form-container-0 {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    z-index: 999;
-    width: 500px;
-    height: 320px;
-    margin-left: -250px;
-    margin-top: -160px;
-}
-
-.ticket-form-container,
 .login-form-container,
 .dialog-form-container {
     background: rgba(0, 0, 0, 0.4);
@@ -46,25 +22,6 @@ body {
     right: 0;
     bottom: 0;
     z-index: 9999;
-}
-
-.ticket-form {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    z-index: 999;
-    display: flex;
-    flex-direction: column;
-    padding: 15px 20px;
-    color: dimgray;
-    border: 1px solid lightgray;
-    border-radius: 10px;
-    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
-    background-color: white;
-    width: 500px;
-    height: 300px;
-    margin-left: -250px;
-    margin-top: -150px;
 }
 
 .login-form {
@@ -104,7 +61,6 @@ body {
     margin-top: -75px;
 }
 
-.ticket-form-title,
 .login-form-title,
 .dialog-title {
     text-align: center;
@@ -124,7 +80,6 @@ body {
     resize: none;
 }
 
-.ticket-buttons,
 .dialog-buttons {
     display: flex;
     flex-direction: row;
@@ -157,60 +112,6 @@ body {
 
 .hidden {
     display: none;
-}
-
-.ticket-list {
-    display: flex;
-    flex-direction: column;
-    margin: 20px 0;
-}
-
-.ticket {
-    display: flex;
-    flex-direction: row;
-    align-items: start;
-    padding: 10px;
-    border: 1px solid lightgray;
-}
-
-.row-btn {
-    width: 35px;
-    height: 35px;
-    margin-right: 5px;
-    font-size: 18px;
-    border: 1px solid lightgray;
-    border-radius: 50%;
-    color: dimgray;
-    background-color: white;
-}
-
-.row-btn:hover {
-    background-color: lightcyan;
-    border-color: lightblue;
-}
-
-.desc-container {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    padding-top: 9px;
-    margin: 0 20px 0 10px;
-    width: 500px;
-}
-
-.ticket-text {
-    color: dimgray;
-}
-
-.ticket-desc {
-    margin-top: 20px;
-}
-
-.ticket-created {
-    width: 120px;
-    margin-top: 9px;
-    margin-right: 10px;
-    color: dimgray;
 }
 
 .main-container {
@@ -308,7 +209,7 @@ body {
     padding-left: 3px;
     border: 1px solid lightgray;
     border-radius: 50%;
-    background-color:lightseagreen ;
+    background-color: lightseagreen;
     color: white;
     font-family: inherit;
     box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.4);
@@ -316,17 +217,17 @@ body {
 
 .send-button:focus {
     border: 2px solid rgb(47, 215, 215);
-    outline: none; 
+    outline: none;
 }
 
 .post-container {
     display: flex;
     flex-direction: row;
-    margin-bottom: 15px;    
+    margin-bottom: 15px;
 }
 
 .right {
-    justify-content: end;   
+    justify-content: end;
 }
 
 .post {
@@ -335,7 +236,7 @@ body {
     flex-direction: column;
     padding: 10px;
     border-radius: 10px;
-    background-color:beige;
+    background-color: beige;
     box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.4);
 }
 
@@ -353,7 +254,7 @@ body {
 
 .postright {
     text-align: end;
-    background-color:rgb(214, 254, 241);
+    background-color: rgb(214, 254, 241);
 }
 
 .mypost {

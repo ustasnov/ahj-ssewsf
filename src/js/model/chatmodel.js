@@ -2,6 +2,7 @@ export default class ChatModel {
   constructor(serverUrl) {
     this.subscribers = new Map();
     this.host = serverUrl;
+    //this.ws = new WebSocket(this.host + "/ws");
     this.ws = new WebSocket(this.host + "/ws");
     this.currentUser = null;
 
@@ -24,7 +25,6 @@ export default class ChatModel {
     });
 
     this.ws.addEventListener("message", (e) => {
-      //console.log(e);
       const data = JSON.parse(e.data);
       switch (data.command) {
         case "login": {

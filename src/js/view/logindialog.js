@@ -37,7 +37,6 @@ export default class LoginDialog {
         if (nameField.value.trim() !== "") {
           this.data = { command: "login", data: nameField.value };
           this.controller.login(this.data);
-          //body.removeChild(this.formContainer);
         } else {
           new MessageDialog(
             "message",
